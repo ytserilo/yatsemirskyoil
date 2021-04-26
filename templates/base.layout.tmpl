@@ -1,0 +1,572 @@
+{{define "base"}}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ .PageTitle }}</title>
+    <link rel="manifest" href="/static/manifest.webmanifest">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#00ac94">
+    <meta name="msapplication-navbutton-color" content="#00ac94">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="application-name" content="Yatsemirsky Oil">
+    <meta name="apple-mobile-web-app-title" content="Yatsemirsky Oil">
+    <meta name="msapplication-starturl" content="/">
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/static/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/static/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script type="text/javascript" src="/static/generate-sw.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="shortcut icon" href="/static/font.png">
+    <meta name='viewport' content='initial-scale=1'/>
+
+    <meta name="description" content="{{ .Description }}">
+    <meta name="keywords" content="{{ .Keywords }}">
+    <meta name="" content="">
+    <meta name="robots" content="{{ .IndexType }}"/>
+    <meta name="googlebot" content="{{ .IndexType }}"/>
+    <meta name="yandex" content="{{ .IndexType }}"/>
+
+    <meta property="og:site_name" content="Yatsemirsky Oil">
+    {{ if .ProductInfo }}
+      <meta name="og:type" content="product">
+    {{ end }}
+
+
+    <meta name="og:title" content="{{ .PageTitle }}">
+    <meta name="og:description" content="{{ .Description }}">
+    <meta name="og:image" content="{{ .Image }}">
+    <script type="text/javascript">
+      try{
+        document.head.querySelector("meta[name='og:url']").setAttribute("content", document.location.href);
+      }catch{}
+
+      function registerServiceWorker() {
+        // регистрирует скрипт sw в поддерживаемых браузерах
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js', { scope: '/' }).then(() => {
+              
+            }).catch(error => {
+
+            });
+          }
+        }
+        registerServiceWorker();
+    </script>
+
+    <link rel="apple-touch-icon" href="/static/font.png">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+    <script type="text/javascript">
+      let PRODUCTID = undefined;
+    </script>
+  </head>
+  <body>
+    <div class="order-modal" style="display: none; opacity: 0;">
+      <div class="inner-modal">
+        <div style="transform: translate3d(100%, 0, 0);" class="success">
+          <span>Заказ успешно обработан</span>
+
+          <img src="/static/check-circle-regular.svg" alt="">
+        </div>
+        <div class="modal-header">
+          <p>Создание заказа</p>
+          <button type="button" name="button" id="close-order">
+            Закрыть
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div>
+            <span>Номер телефона</span>
+            <input type="text" autocomplete="off" staticvalue="" id="phone-number" name="" value="">
+            <script type="text/javascript">
+                $(function() {
+                  $('#phone-number').mask('+38(000)000-00-00');
+                });
+            </script>
+          </div>
+          <div>
+            <span>Форма оплаты</span>
+            <select id="payment" name="">
+              <option value="prepayment">Предоплата</option>
+              <option value="imposed">Наложенный</option>
+            </select>
+          </div>
+          <div>
+            <span>Доставка</span>
+            <select id="delivery-type">
+              <option value="pickup">Самовывоз</option>
+              <option value="kurer">Курьером</option>
+              <option value="delivery_under_door">Доставка от производителя</option>
+              <option value="new_mail">Новая почта в отделение</option>
+            </select>
+          </div>
+          <div id="city" style="display: none;">
+            <span>Город</span>
+            <input autocomplete="off" staticvalue="" type="text" id="city-name" name="" value="">
+            <div style="display: flex; flex-direction: column;" class="address-result">
+
+            </div>
+          </div>
+          <div id="street" style="display: none;">
+            <div>
+              <span>Улица</span>
+              <input autocomplete="off" type="text" id="street-input" name="" value="">
+            </div>
+
+            <div>
+              <span>Дом</span>
+              <input autocomplete="off" type="text" id="house" name="" value="">
+            </div>
+
+            <div>
+              <span>Квартира</span>
+              <input autocomplete="off" type="text" id="room" name="" value="">
+            </div>
+
+          </div>
+          <div id="postal" style="display: none;">
+            <span>Номер отделения</span>
+            <input autocomplete="off" staticvalue="" type="text" id="wirehouse" name="" value="">
+            <div style="display: flex; flex-direction: column;" class="warehouse-result">
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <span></span>
+          <button type="button" id="create-order" name="button">Оформить заказ</button>
+        </div>
+      </div>
+      <script type="text/javascript" src="/static/create_order.js"></script>
+    </div>
+
+    <div class="question-form-img">
+      <img id="help-button" src="/static/question-solid.svg" alt="">
+    </div>
+    <div class="question-success-block">
+      <p>Вопрос успешно отправлен</p>
+      <img src="/static/check-circle-regular.svg" alt="">
+    </div>
+    <div class="question-form">
+
+      <div class="question-block">
+        <div style="margin-bottom: 50px; border-bottom: 1px solid #9e9e9e;">
+          <span>Задать вопрос</span>
+        </div>
+        <div>
+          <span>Ваш Email</span>
+          <input type="email" id="email" name="" value="" autocomplete="off">
+        </div>
+        <div>
+          <span>Ваш вопрос</span>
+          <textarea name="name" id="question" rows="3" cols="20"></textarea>
+        </div>
+        <div>
+          <button id="send-question">Отправить</button>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="/static/question_form.js"></script>
+    <div class="container">
+      <div class="head">
+        <span id="index-title" style="cursor: pointer;">Эфирные масла</span>
+        <div class="head-inner">
+          <img src="/static/font.png" alt="">
+        </div>
+      </div>
+
+      <div class="body-wrapper">
+        <div class="body">
+          <div class="col" onclick="open_block('.products')">
+            <div class="block-cover"></div>
+            <img src="/static/products.png" alt="">
+            <span>Продукция</span>
+          </div>
+          <div class="col" onclick="open_block('.delivery')">
+            <div class="block-cover"></div>
+            <img src="/static/delivery_and_payment.png" alt="">
+            <span>Доставка и оплата</span>
+          </div>
+          <div class="col" onclick="open_block('.contacts')">
+            <div class="block-cover"></div>
+            <img src="/static/contacts.png" alt="">
+            <span>Контакты</span>
+          </div>
+        </div>
+
+        <div class="user-block">
+          <div class="close-block">
+            <img src="/static/chevron-down-solid.svg" alt="">
+          </div>
+          <div class="products">
+            {{ if .Products }}
+              {{template "products" .}}
+            {{ end }}
+          </div>
+
+          <div class="contacts">
+            <div class="inner-container">
+              <div class="contact-info">
+
+                <div class="founder">
+                  <img style="height: 160px;" src="https://www.navigatecommerce.com/wp-content/uploads/2019/05/founder-profile-img.jpg" alt="">
+                  <br>
+                  <span>Яцемiрський Ярослав Миколайович</span>
+                  <br>
+                  <span>+38(098) 925-41-56 (Telegram, Viber)</span>
+                </div>
+
+              </div>
+
+              <div class="">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2152.3424198035354!2d30.17435153043702!3d48.98861497934235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDU5JzE5LjAiTiAzMMKwMTAnMzUuNSJF!5e1!3m2!1suk!2sua!4v1619370358798!5m2!1suk!2sua" class="map" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="delivery">
+
+            <div class="inner-container">
+              <div>
+                <img src="/static/self_delivery.png" alt="">
+                <span>Доставка нашем транспортом возможна лишь при заказе объемом свыше 50л</span>
+              </div>
+
+              <div>
+                <img src="/static/free_delivery.png" alt="">
+                <span>Любая покупка по предоплате доставка за наш счет</span>
+              </div>
+
+              <div>
+                <img src="/static/car_delivery.ico" alt="">
+                <span>Место для самовывоза <a href="https://goo.gl/maps/KHc4QiKeneUjqrfn6">Здесь</a></span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="page-block">
+          {{ if .ProductInfo }}
+            {{ template "product-obj" .}}
+          {{ else }}
+            <div class="product-info">
+
+            </div>
+          {{ end }}
+        </div>
+      </div>
+
+
+      <div class="left">
+        <img src="/static/chevron-left-solid.svg" alt="">
+      </div>
+      <div class="right">
+        <img src="/static/chevron-right-solid.svg" alt="">
+      </div>
+
+
+    </div>
+    <div class="footer">
+
+    </div>
+
+    <script type="text/javascript">
+    let history_of_page = ["/"];
+    let current_index = 0;
+
+    let loaded_data = {"products": false};
+
+    const left = document.querySelector(".left");
+    const right = document.querySelector(".right");
+
+    const cols = document.querySelectorAll(".col");
+    let flex_index = 0;
+    let class_list = [".products", ".contacts", ".delivery"];
+
+    function change_block(flex_index){
+      for(let i = 0; i < cols.length; i++){
+        cols[i].setAttribute("style", "opacity: 0;");
+      }
+      let s = (cols[0].offsetWidth / 90) * 5;
+      cols[flex_index].setAttribute(
+        "style",
+        "opacity: 1; transform: matrix(1, 0, 0, 1, "+String(flex_index * -cols[0].offsetWidth + s)+", 0);",
+      );
+    }
+
+    function open_block(class_name, history_controll=true, back_event=false){
+      const div = document.querySelector(class_name);
+      for(let i = 0; i < class_list.length; i++){
+        document.querySelector(class_list[i]).setAttribute("style", "opacity: 0;");
+      }
+      div.setAttribute(
+        "style",
+        "opacity: 1; z-index: 10;",
+      );
+      document.querySelector(".user-block").setAttribute("style", "transform: translate3d(0, -100%, 0);height: 100%;");
+
+      if(history_controll == true){
+        if(class_name == ".products"){
+          load_data("products");
+          if(back_event == false){
+            window.history.pushState({
+              "class-name": ".products", "title": "Эфирные масла от производителя"},
+              "Эфирные масла от производителя",
+              "/products");
+            current_index += 1;
+          }
+
+        }
+      }
+
+    }
+    window.onpopstate = function(){
+      const path_name = window.location.pathname;
+
+      let index = history_of_page.indexOf(path_name);
+      const state = window.history.state;
+
+      if(index != current_index){
+        if(path_name != "/" && path_name.indexOf("/product_id/") == -1){
+          document.querySelector(".product-info").setAttribute("style", "");
+          open_block(state["class-name"], true, true);
+        }
+        else if(path_name.indexOf("/product_id/") != -1){
+          document.querySelector(".product-info").setAttribute("style", "transform: translate3d(0, 0, 0)");
+        }
+        else{
+          close_function(null, false);
+          document.querySelector(".product-info").setAttribute("style", "");
+        }
+      }
+      else if(index == current_index && path_name == "/"){
+        close_function(null, false);
+        document.querySelector(".product-info").setAttribute("style", "");
+      }
+      if(index != -1){
+        current_index = index;
+      }
+
+    }
+
+    function load_data(name){
+      if(loaded_data[name] == false){
+        fetch("/"+name, {method: "POST"}).then(async function(response){
+         const html = await response.text();
+
+         let parser = new DOMParser();
+         let doc = parser.parseFromString(html, 'text/html');
+
+         const inner_html = doc.querySelector("."+name).innerHTML;
+         document.querySelector("."+name).innerHTML = inner_html;
+       });
+
+       loaded_data[name] = true;
+      }
+    }
+
+    {{ if .Products }}
+      loaded_data["products"] = true;
+      history_of_page[0] = "/products";
+      open_block(".products", false);
+      window.history.replaceState({
+        "class-name": ".products", "title": "Эфирные масла от производителя"},
+        "Эфирные масла от производителя",
+        "/products");
+    {{ end }}
+
+    if(window.innerWidth <= 500){
+      change_block(flex_index);
+    }
+
+    document.querySelector(".close-block").onclick = close_function;
+    document.querySelector("#index-title").onclick = function(e){
+      close_function(e, true);
+      document.querySelector(".product-info").setAttribute("style", "");
+    }
+
+    function close_function(e, click_switch=true){
+
+      if(click_switch == true){
+        current_index += 1;
+        window.history.pushState({}, "Essentinal oils", "/");
+      }
+
+      for(let i = 0; i < class_list.length; i++){
+        document.querySelector(class_list[i]).setAttribute("style", "opacity: 0;");
+        document.querySelector(".user-block").setAttribute("style", "transform: translate3d(0, 0, 0);");
+      }
+    }
+    window.onresize = function(e){
+      let width = e.currentTarget.innerWidth;
+      if(width <= 500){
+        change_block(flex_index);
+      }
+      else{
+        for(let i = 0; i < cols.length; i++){
+          cols[i].setAttribute("style", "");
+        }
+      }
+    }
+
+    left.onclick = function(){
+      flex_index -= 1;
+
+      if(flex_index < 0){
+        flex_index = cols.length - 1;
+      }
+      change_block(flex_index);
+    }
+
+    right.onclick = function(){
+      flex_index += 1;
+
+      if(flex_index > cols.length - 1){
+        flex_index = 0;
+      }
+      change_block(flex_index);
+    }
+
+    function check_capacity_error(capacity){
+      let block = null;
+      if(Number(capacity.value) < 100){
+        block = document.createElement("div");
+        block.setAttribute("id", "error");
+
+        let span = document.createElement("span");
+        span.setAttribute("style", "color: red;");
+        span.innerText = "Минимальный объем заказа 100 мл";
+        let br = document.createElement("br");
+
+        block.append(br);
+        block.append(span)
+
+        let pdiv = capacity.parentElement;
+        let error_block = pdiv.querySelector("#error");
+        if(error_block != undefined){
+          error_block.remove();
+        }
+
+        pdiv.append(block);
+      }
+      else{
+        let pdiv = capacity.parentElement;
+        let error_block = pdiv.querySelector("#error");
+        if(error_block != undefined){
+          error_block.remove();
+        }
+      }
+      return block;
+    }
+
+    let capacity = document.querySelector("#capacity");
+    try{
+      capacity.oninput = function(){
+        let num = Number(capacity.value);
+        let p = document.querySelector("#price");
+
+        let n = Number(p.getAttribute("price")) * num;
+        document.querySelector("#total").innerText = "К оплате: " + String(Math.round(n)) + " UAH";
+
+        check_capacity_error(capacity);
+      }
+    }catch{}
+
+    function open_modal(){
+      document.querySelector(".success").setAttribute("style", "transform: translate3d(100%, 0, 0);");
+      let capacity = document.querySelector("#capacity");
+
+      if(Number(capacity.value) <= 50000){
+        document.querySelector("option[value=delivery_under_door]").setAttribute("style", "display: none;");
+      }else{
+        document.querySelector("option[value=delivery_under_door]").setAttribute("style", "");
+      }
+
+      capacity.oninput = function(){
+        let num = Number(capacity.value);
+        let p = document.querySelector("#price");
+
+        let n = Math.round(Number(p.getAttribute("price")) * num);
+        document.querySelector("#total").innerText = "К оплате: " + String(n) + " UAH";
+
+        check_capacity_error(capacity);
+      }
+
+      let r = check_capacity_error(capacity);
+      if(r == null){
+        let val = document.querySelector("#total").innerText;
+        document.querySelector(".modal-footer span").innerText = val;
+
+        document.querySelector(".order-modal").setAttribute("style", "display: block; opacity: 1");
+      }
+
+    }
+
+    function get_info(url, id, class_name){
+      fetch(url+id, {method: "POST"}).then(async function(response){
+        let html = await response.text();
+
+        let parser = new DOMParser();
+        let doc = parser.parseFromString(html, "text/html");
+
+        const inner_html = doc.querySelector("."+class_name).innerHTML;
+        let info = document.querySelector("."+class_name);
+        let title = doc.querySelector("h1").innerText;
+
+        info.innerHTML = inner_html;
+        let capacity = document.querySelector("#capacity");
+
+        capacity.oninput = function(){
+          let num = Number(capacity.value);
+          let p = document.querySelector("#price");
+
+          let n = Number(p.getAttribute("price")) * num;
+          document.querySelector("#total").innerText = "К оплате: " + String(Math.round(n)) + " UAH";
+
+          check_capacity_error(capacity);
+        }
+
+        info.setAttribute(
+          "style",
+          "transform: translate3d(0, 0, 0);",
+        );
+        window.history.pushState({"html": html},
+          title,
+          url+id,
+        );
+        history_of_page.push(url+id);
+        current_index += 1;
+      });
+    }
+
+
+    function choose_product(id){
+      PRODUCTID = id;
+      get_info("/product_id/", id, "product-info");
+    }
+
+    </script>
+  </body>
+
+</html>
+
+{{end}}

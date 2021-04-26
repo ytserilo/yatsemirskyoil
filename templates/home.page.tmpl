@@ -1,0 +1,105 @@
+{{template "base" .}}
+
+
+{{define "products"}}
+<div class="products">
+  <div class="inner-container">
+    <div class="products-block">
+
+      <div class="product" onclick="choose_product('mint')">
+        <img src="/static/mint.png" alt="">
+
+        <div class="product-info-block">
+          <p>Эфирное масло мяты</p>
+          <p>1мл - 1 UAH</p>
+        </div>
+
+      </div>
+
+      <div class="product" onclick="choose_product('marigold')">
+        <img src="/static/barhatc.png" alt="">
+
+        <div class="product-info-block">
+          <p>Эфирное масло бархатцев</p>
+          <p>1мл - 2.80 UAH</p>
+        </div>
+
+      </div>
+
+      <div class="product" onclick="choose_product('dill')">
+        <img src="/static/fennel.png" alt="">
+        <div class="product-info-block">
+          <p>Эфирное масло укропа</p>
+          <p>1мл - 1 UAH</p>
+        </div>
+
+      </div>
+
+      <div class="product" onclick="choose_product('thyme')">
+        <img src="/static/schabrets.png" style="height: 66%;" alt="">
+        <div class="product-info-block">
+          <p>Эфирное масло тимьяна</p>
+          <p>1мл - 1 UAH</p>
+        </div>
+
+      </div>
+
+      <div class="product" onclick="choose_product('clary_sage')">
+        <img src="/static/sage.webp" alt="">
+        <div class="product-info-block">
+          <p>Эфирное масло шалфея мускатного</p>
+          <p>1мл - 1.90 UAH</p>
+        </div>
+
+      </div>
+
+      <div class="product" onclick="choose_product('lavender')">
+        <img src="/static/lavanda.png" alt="">
+        <div class="product-info-block">
+          <p>Эфирное масло лаванди</p>
+          <p>1мл - 2.25 UAH</p>
+        </div>
+
+      </div>
+
+      <div class="product" onclick="choose_product('hyssop')">
+        <img src="/static/issop.png" alt="">
+        <div class="product-info-block">
+          <p>Эфирное масло иссопа</p>
+          <p>1мл - 2.30 UAH</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{{end}}
+
+{{ define "product-obj" }}
+
+<div class="product-info" style="transform: translate3d(0, 0, 0)">
+  <div>
+    <h1 id="product-title">{{ .PageTitle }}</h1>
+    <img src="{{ .Image }}" alt="{{ .PageTitle }}">
+  </div>
+
+  <div style="margin-top: 50px;">
+    <p>{{ .Description }}</p>
+    <p id="price" price="{{ .Price }}">Цена: {{ .Price }} UAH за мл</p>
+
+    <div>
+      <div style="margin: 20px;">
+        <span>Объем мл</span>
+        <input type="number" name="" id="capacity" value="" style="width: 100px;border-radius: 15px;border: 2px solid black;outline: none;padding: 10px;">
+        <div><br><span id="total"></span></div>
+      </div>
+      <div>
+        <button type="button" name="button" onclick="open_modal()">Оформить заказ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ end }}

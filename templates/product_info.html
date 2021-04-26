@@ -1,0 +1,22 @@
+<div class="product-info">
+  <div>
+    <h1 id="product-title">{{ .PageTitle }}</h1>
+    <img src="{{ .Image }}" alt="{{ .PageTitle }}">
+  </div>
+
+  <div style="margin-top: 50px;">
+    <p>{{ .Description }}</p>
+    <p id="price" price="{{ .Price }}">Цена: {{ .Price }} UAH за мл</p>
+
+    <div>
+      <div style="margin: 20px;">
+        <span>Объем мл</span>
+        <input type="number" name="" id="capacity" value="" style="width: 100px;border-radius: 15px;border: 2px solid black;outline: none;padding: 10px;">
+        <div><br><span id="total"></span></div>
+      </div>
+      <div>
+        <button type="button" name="button" onclick="open_modal()">Оформить заказ</button>
+      </div>
+    </div>
+  </div>
+</div>
