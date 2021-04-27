@@ -199,7 +199,6 @@ func main(){
     if file_name == "sw.js"{
       http.ServeFile(w, r, "static/sw.js")
     }
-    return;
   })
   router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request){
     files := []string{

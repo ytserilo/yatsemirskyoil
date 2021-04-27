@@ -65,7 +65,7 @@
       function registerServiceWorker() {
         // регистрирует скрипт sw в поддерживаемых браузерах
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js', { scope: '/' }).then(() => {
+            navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(() => {
 
             }).catch(error => {
 
@@ -301,7 +301,7 @@
           </div>
         </div>
         <div class="offline-block">
-          <div class="">
+          <div style="display: flex;flex-direction: column;">
             <span>Нет подключения к сети</span>
 
             <svg version="1.0" xmlns="http://www.w3.org/2000/svg"

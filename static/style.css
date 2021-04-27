@@ -6,7 +6,10 @@
    transition: all 1.2s cubic-bezier(.19,1,.22,1);
    font-family: "Montserrat";
  }
-
+#street > div{
+  display: flex;
+  flex-direction: column;
+}
 .offline-block{
   width: 100%;
   height: 100%;
