@@ -320,7 +320,7 @@ document.querySelector("#create-order").onclick = function(){
   }
 
   if(error_count == 0){
-    document.querySelector(".success").setAttribute("style", "");
+
     let capacity = document.querySelector("#capacity");
     let num = Number(capacity.value);
     let p = document.querySelector("#price");
@@ -335,7 +335,7 @@ document.querySelector("#create-order").onclick = function(){
     let street = document.querySelector("#street-input").value;
     let house = document.querySelector("#house").value;
     let room = document.querySelector("#room").value;
-    console.log(street)
+
     let address = "Улица: "+street+", Дом: "+house+", Квартира: "+room;
 
     let request = {
@@ -353,8 +353,8 @@ document.querySelector("#create-order").onclick = function(){
       method: "POST",
       //contentType: "application/json",
       data: {"data": JSON.stringify(request)},
-      success: function(e){},
-      error: function(){},
+      success: function(e){document.querySelector(".success").setAttribute("style", "");},
+      error: function(){document.querySelector(".offline-block").setAttribute("style", "transform: translate3d(0,0,0);");},
     });
 
   }

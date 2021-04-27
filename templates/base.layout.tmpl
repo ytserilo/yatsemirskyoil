@@ -7,10 +7,20 @@
     <link rel="manifest" href="/static/manifest.webmanifest">
 
     <meta name="mobile-web-app-capable" content="yes">
+
+    <link href="/static/apple_splash_2048.png" sizes="2048x2732" rel="apple-touch-startup-image" />
+    <link href="/static/apple_splash_1668.png" sizes="1668x2224" rel="apple-touch-startup-image" />
+    <link href="/static/apple_splash_1536.png" sizes="1536x2048" rel="apple-touch-startup-image" />
+    <link href="/static/apple_splash_1125.png" sizes="1125x2436" rel="apple-touch-startup-image" />
+    <link href="/static/apple_splash_1242.png" sizes="1242x2208" rel="apple-touch-startup-image" />
+    <link href="/static/apple_splash_750.png" sizes="750x1334" rel="apple-touch-startup-image" />
+    <link href="/static/apple_splash_640.png" sizes="640x1136" rel="apple-touch-startup-image" />
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#00ac94">
     <meta name="msapplication-navbutton-color" content="#00ac94">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#00ac94">
+
     <meta name="application-name" content="Yatsemirsky Oil">
     <meta name="apple-mobile-web-app-title" content="Yatsemirsky Oil">
     <meta name="msapplication-starturl" content="/">
@@ -23,7 +33,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="/static/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/static/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/static/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/static/icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/static/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
@@ -37,7 +47,7 @@
 
     <meta name="description" content="{{ .Description }}">
     <meta name="keywords" content="{{ .Keywords }}">
-    <meta name="" content="">
+
     <meta name="robots" content="{{ .IndexType }}"/>
     <meta name="googlebot" content="{{ .IndexType }}"/>
     <meta name="yandex" content="{{ .IndexType }}"/>
@@ -60,7 +70,7 @@
         // регистрирует скрипт sw в поддерживаемых браузерах
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js', { scope: '/' }).then(() => {
-              
+
             }).catch(error => {
 
             });
@@ -158,6 +168,36 @@
       </div>
       <script type="text/javascript" src="/static/create_order.js"></script>
     </div>
+
+    <div class="wrapper-apple-helper">
+      <div class="apple-helper">
+        <div class="header">
+          <span class="close" id="close-helper"><img src="/static/times-solid.svg" style="width: 20px;height: 20px;"></span>
+          <span class="header-span">Устанавливайте приложение Yatsemirsky Oil</span>
+        </div>
+        <div class="body-helper">
+          <p>Нажмите "Поделиться"<img src="/static/times-solid.svg" style="width: 20px;height: 20px;"><br>Выберите "На экран Домой"<br><img src="/static/times-solid.svg" style="width: 20px;height: 20px;"></p>
+          <p>Иконка программы отразится на вашем экране и вы можете в любую минуту воспользоваться им</p>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+    document.querySelector("#close-helper").onclick = function(){
+      document.querySelector(".wrapper-apple-helper").setAttribute("style", "display: none;");
+    }
+    const isIos = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+
+      return /iphone|ipad|ipod/.test( userAgent );
+    }
+
+    const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+    if (isIos() && !isInStandaloneMode()) {
+      document.querySelector(".wrapper-apple-helper").setAttribute("style", "display: flex;");
+    }
+    </script>
 
     <div class="question-form-img">
       <img id="help-button" src="/static/question-solid.svg" alt="">
@@ -264,6 +304,54 @@
             </div>
           </div>
         </div>
+        <div class="offline-block">
+          <div class="">
+            <span>Нет подключения к сети</span>
+
+            <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+             width="300.000000pt" height="275.000000pt" viewBox="0 0 300.000000 275.000000"
+             preserveAspectRatio="xMidYMid meet">
+
+            <g transform="translate(0.000000,275.000000) scale(0.100000,-0.100000)"
+            fill="#000000" stroke="none">
+            <path d="M1468 1432 c-1113 -1112 -1138 -1138 -1138 -1175 0 -54 43 -97 97
+            -97 37 0 62 24 1175 1138 1137 1136 1138 1137 1138 1178 0 55 -39 94 -96 94
+            -39 0 -51 -12 -1176 -1138z"/>
+            <path d="M1262 2114 c-343 -47 -673 -184 -962 -401 -77 -58 -100 -128 -61
+            -187 43 -65 121 -75 192 -25 293 204 491 295 765 349 128 26 428 38 539 22
+            l70 -10 103 101 c56 56 102 105 102 108 0 10 -84 27 -210 44 -132 18 -402 17
+            -538 -1z"/>
+            <path d="M2260 1865 l-94 -95 44 -17 c25 -9 90 -40 145 -68 89 -45 149 -83
+            299 -188 58 -40 116 -34 163 17 46 50 47 110 2 161 -53 60 -363 254 -444 279
+            -16 5 -40 -14 -115 -89z"/>
+            <path d="M1300 1664 c-225 -33 -435 -114 -637 -247 -115 -75 -141 -119 -113
+            -192 18 -48 58 -75 110 -75 40 0 59 8 126 52 158 104 349 183 506 208 l76 12
+            128 129 129 129 -115 -1 c-63 -1 -158 -7 -210 -15z"/>
+            <path d="M1907 1512 c-53 -53 -97 -101 -97 -105 0 -4 9 -7 20 -7 37 0 215 -62
+            302 -106 48 -24 122 -67 165 -95 71 -46 82 -50 122 -46 62 7 102 49 108 114 6
+            62 -16 91 -125 161 -118 76 -342 182 -384 182 -7 0 -57 -44 -111 -98z"/>
+            <path d="M1460 1065 l-135 -136 45 8 c25 4 110 8 190 7 130 -1 154 -4 230 -29
+            47 -15 124 -48 171 -72 96 -51 125 -52 179 -7 61 52 60 137 -1 189 -70 58
+            -266 136 -408 160 -136 24 -121 31 -271 -120z"/>
+            <path d="M947 1029 c-36 -29 -63 -66 -55 -75 2 -2 29 21 58 51 59 60 57 74 -3
+            24z"/>
+            <path d="M1480 759 c-59 -11 -118 -55 -155 -114 -26 -42 -30 -58 -30 -119 0
+            -82 20 -130 73 -182 49 -48 107 -67 186 -62 126 8 213 94 223 221 14 166 -128
+            288 -297 256z"/>
+            </g>
+            </svg>
+
+
+            <button type="button" id="to-main" name="button">На главную</button>
+
+          </div>
+        </div>
+        <script type="text/javascript">
+          document.querySelector("#to-main").onclick = function(){
+            document.querySelector("#index-title").click();
+            document.querySelector(".offline-block").setAttribute("style", "transform: translate3d(0,100%,0);");
+          }
+        </script>
         <div class="page-block">
           {{ if .ProductInfo }}
             {{ template "product-obj" .}}
@@ -368,9 +456,10 @@
 
     }
 
-    function load_data(name){
+    async function load_data(name){
       if(loaded_data[name] == false){
-        fetch("/"+name, {method: "POST"}).then(async function(response){
+        try{
+         let response = await fetch("/"+name, {method: "POST"});
          const html = await response.text();
 
          let parser = new DOMParser();
@@ -378,9 +467,13 @@
 
          const inner_html = doc.querySelector("."+name).innerHTML;
          document.querySelector("."+name).innerHTML = inner_html;
-       });
 
-       loaded_data[name] = true;
+         loaded_data[name] = true;
+        }
+        catch{
+          document.querySelector(".offline-block").setAttribute("style", "transform: translate3d(0,0,0);");
+        }
+
       }
     }
 
@@ -521,8 +614,10 @@
 
     }
 
-    function get_info(url, id, class_name){
-      fetch(url+id, {method: "POST"}).then(async function(response){
+    async function get_info(url, id, class_name){
+      try{
+        let response = await fetch(url+id, {method: "POST"});
+
         let html = await response.text();
 
         let parser = new DOMParser();
@@ -555,7 +650,11 @@
         );
         history_of_page.push(url+id);
         current_index += 1;
-      });
+
+      }
+      catch{
+        document.querySelector(".offline-block").setAttribute("style", "transform: translate3d(0,0,0);");
+      }
     }
 
 

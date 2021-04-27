@@ -57,7 +57,7 @@ func getProduct(product_id string) Product{
       PageTitle: "Эфирные масла от производителя",
       IndexType: "index, nofollow",
       Image: "/static/font.png",
-      Keywords: "Эфирное масло",
+      Keywords: "Эфирное масло, Yatsemirsky oil, Яцемирський эфирное масло",
       Description: "Эфирное масла 100% качество, бесплатная доставка, лучший выбор и низкие цены. Заказывайте!",
     }
   }else{
@@ -175,7 +175,7 @@ func main(){
        PageTitle: "Эфирные масла от производителя",
        Products: true,
        IndexType: "index, nofollow",
-       Keywords: "Эфирное масло",
+       Keywords: "Эфирное масло, Yatsemirsky oil, Яцемирський эфирное масло",
        Description: "Эфирное масла 100% качество, бесплатная доставка, лучший выбор и низкие цены. Заказывайте!",
      }
      ts, _ := template.ParseFiles(files...)
@@ -209,7 +209,7 @@ func main(){
     data := ControlStruct{
      Image: "/static/font.png",
      PageTitle: "Эфирные масла",
-     Keywords: "Эфирное масло",
+     Keywords: "Эфирное масло, Yatsemirsky oil, Яцемирський эфирное масло",
      IndexType: "index, nofollow",
      Description: "Эфирное масла 100% качество, бесплатная доставка, лучший выбор и низкие цены. Заказывайте!",
     }

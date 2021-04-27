@@ -85,7 +85,7 @@ document.querySelector("#send-question").onclick = function(){
   }
 
   if(error_counter == 0){
-    document.querySelector(".question-success-block").setAttribute("style", "transform: translate3d(0, 0, 0);");
+
     // send request
     $.ajax({
       url: "/question/",
@@ -93,7 +93,11 @@ document.querySelector("#send-question").onclick = function(){
       data: {"data": JSON.stringify({
         "email": email.value,
         "question": question.value,
-      })}
+      })},
+      success: function(){document.querySelector(".question-success-block").setAttribute("style", "transform: translate3d(0, 0, 0);");},
+      error: function(){
+        document.querySelector(".offline-block").setAttribute("style", "transform: translate3d(0,0,0);");
+      }
     })
 
     email.value = "";

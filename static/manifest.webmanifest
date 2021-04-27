@@ -1,6 +1,6 @@
 {
     "theme_color": "#00ac94",
-    "background_color": "#d7f5f9",
+    "background_color": "#00ac94",
     "display": "standalone",
     "start_url": "/",
     "name": "Yatsemirsky Oil",
@@ -11,8 +11,7 @@
         {
             "src": "/static/icon-192x192.png",
             "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "any maskable"
+            "type": "image/png"
         },
         {
             "src": "/static/icon-256x256.png",
@@ -27,7 +26,8 @@
         {
             "src": "/static/icon-512x512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ]
 }
