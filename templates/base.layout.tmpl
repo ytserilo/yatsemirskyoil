@@ -173,7 +173,7 @@
           <span class="header-span">Устанавливайте приложение Yatsemirsky Oil</span>
         </div>
         <div class="body-helper">
-          <p>Нажмите "Поделиться"<img src="/static/times-solid.svg" style="width: 20px;height: 20px;"><br>Выберите "На экран Домой"<br><img src="/static/times-solid.svg" style="width: 20px;height: 20px;"></p>
+          <p>Нажмите "Поделиться" <img src="/static/apple_share.png" style="width: 20px;height: 20px;"><br>Выберите "На экран Домой"<br><img src="/static/apple_home.png" style="width: 20px;height: 20px;"></p>
           <p>Иконка программы отразится на вашем экране и вы можете в любую минуту воспользоваться им</p>
         </div>
       </div>
@@ -582,6 +582,7 @@
     }catch{}
 
     function open_modal(){
+      document.querySelector(".inner-modal").setAttribute("style", "");
       document.querySelector(".success").setAttribute("style", "transform: translate3d(100%, 0, 0);");
       let capacity = document.querySelector("#capacity");
 
