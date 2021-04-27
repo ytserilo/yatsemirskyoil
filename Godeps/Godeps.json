@@ -3,7 +3,7 @@
 	"GoVersion": "go1.14",
 	"GodepVersion": "v80",
 	"Packages": [
-		"./..."
+		"github.com/gorilla/mux"
 	],
 	"Deps": []
 }
