@@ -3,6 +3,8 @@ self.addEventListener('install', function(event) {
     caches.open('pwabuilder-offline').then(function(cache) {
       try{
         cache.addAll([
+          "/",
+          "/products",
           "/static/manifest.webmanifest",
           "/static/apple_splash_2048.png",
           "/static/apple_splash_1668.png",
