@@ -358,7 +358,7 @@ document.querySelector("#create-order").onclick = function(){
         document.querySelector(".inner-modal").scrollTo(0, 0);
         document.querySelector(".inner-modal").setAttribute("style", "overflow: hidden;");
       },
-      error: function(){document.querySelector(".offline-block").setAttribute("style", "transform: translate3d(0,0,0);");},
+      error: function(){document.querySelector(".offline-block").setAttribute("style", "transform: translate3d(0,0,0); opacity: 1;");},
     });
 
   }

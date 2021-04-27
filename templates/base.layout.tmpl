@@ -345,7 +345,7 @@
         <script type="text/javascript">
           document.querySelector("#to-main").onclick = function(){
             document.querySelector("#index-title").click();
-            document.querySelector(".offline-block").setAttribute("style", "transform: translate3d(0,100%,0); opacity: 1;");
+            document.querySelector(".offline-block").setAttribute("style", "transform: translate3d(0,100%,0);");
           }
         </script>
         <div class="page-block">
@@ -467,7 +467,7 @@
          loaded_data[name] = true;
         }
         catch{
-          document.querySelector(".offline-block").setAttribute("style", "transform: translate3d(0,0,0);");
+          document.querySelector(".offline-block").setAttribute("style", "transform: translate3d(0,0,0); opacity: 1;");
         }
 
       }
@@ -650,7 +650,7 @@
 
       }
       catch{
-        document.querySelector(".offline-block").setAttribute("style", "transform: translate3d(0,0,0);");
+        document.querySelector(".offline-block").setAttribute("style", "transform: translate3d(0,0,0); opacity: 1;");
       }
     }
 

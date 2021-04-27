@@ -53,9 +53,15 @@ self.addEventListener('install', function(event) {
 });
 
 
+
 self.addEventListener('fetch', evt => {
   evt.respondWith(
     caches.match(evt.request).then(cacheRes => {
+      
+      caches.open('pwabuilder-offline').then(function(cache) {
+        cache.delete(evt.request).then(function(response) {});
+      });
+
       return cacheRes || fetch(evt.request);
     })
   );
