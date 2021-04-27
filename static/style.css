@@ -23,6 +23,7 @@
   justify-content: center;
   text-align: center;
   transform: translate3d(0,100%,0);
+  opacity: 0;
 }
 
 .offline-block svg{
