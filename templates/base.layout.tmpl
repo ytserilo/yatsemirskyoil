@@ -412,9 +412,8 @@
 
       if(history_controll == true){
         if(class_name == ".products"){
-          if(loaded_data[name] == false){
+          if(loaded_data["products"] == false){
             document.querySelector(".products").innerHTML = '<span style="font-size: 2rem; text-align: center; display: block; margin-top: 100px;">Loading...</span>';
-
           }
 
           load_data("products");
