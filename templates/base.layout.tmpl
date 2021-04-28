@@ -57,11 +57,11 @@
     <meta name="og:title" content="{{ .PageTitle }}">
     <meta name="og:description" content="{{ .Description }}">
     <meta name="og:image" content="{{ .Image }}">
+
     <script type="text/javascript">
       try{
         document.head.querySelector("meta[name='og:url']").setAttribute("content", document.location.href);
       }catch{}
-
       function registerServiceWorker() {
         // регистрирует скрипт sw в поддерживаемых браузерах
         if ('serviceWorker' in navigator) {
@@ -373,6 +373,8 @@
 
     </div>
 
+    <script type="text/javascript" src="/static/touch.js"></script>
+
     <script type="text/javascript">
     let history_of_page = ["/"];
     let current_index = 0;
@@ -410,6 +412,11 @@
 
       if(history_controll == true){
         if(class_name == ".products"){
+          if(loaded_data[name] == false){
+            document.querySelector(".products").innerHTML = '<span style="font-size: 2rem; text-align: center; display: block; margin-top: 100px;">Loading...</span>';
+
+          }
+
           load_data("products");
           if(back_event == false){
             window.history.pushState({
@@ -625,6 +632,16 @@
         let title = doc.querySelector("h1").innerText;
 
         info.innerHTML = inner_html;
+        let prd_info = document.querySelector(".product-info");
+
+        if(prd_info != undefined){
+          prd_info.touchcancel = touchcancel_handler;
+          prd_info.ontouchmove = function(e){
+            touch_move_handler(e, false);
+          }
+          prd_info.ontouchstart = touch_start_handler;
+        }
+
         let capacity = document.querySelector("#capacity");
 
         capacity.oninput = function(){
