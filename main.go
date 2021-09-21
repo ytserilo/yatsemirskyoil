@@ -75,8 +75,7 @@ func getProduct(product_id string) Product{
   return prdct
 }
 
-// 1747282321:AAH7NyAGh1AiwBJea0PI5aiiJddkBPmkX-8
-// 1671962552:AAF1wbhTVZwVeuH2brY0ZOUQPuzmGylOSkw
+
 
 func send_message(chat_id string, text string, bot_key string){
   link := "https://api.telegram.org/bot"+bot_key+"/sendMessage"
@@ -111,7 +110,7 @@ func main(){
       text += "Email: "+request_data["email"].(string)
       text += "\nПитання: "+request_data["question"].(string)
 
-      send_message("680730382", text, "1747282321:AAH7NyAGh1AiwBJea0PI5aiiJddkBPmkX-8")
+      send_message("{chat-id}", text, "{bot-token}")
     }
   })
 
@@ -134,7 +133,7 @@ func main(){
       text += "\nЦена: " + request_data["price"].(string)
       text += "\nИмя товара: " + request_data["product-title"].(string)
 
-      send_message("680730382", text, "1671962552:AAF1wbhTVZwVeuH2brY0ZOUQPuzmGylOSkw")
+      send_message("{chat-id}", text, "{bot-token}")
       // send data to telegram messanger
     }
   })
