@@ -6,7 +6,7 @@
     "name": "Yatsemirsky Oil",
     "short_name": "Yatsemirsky Oil",
     "description": "online shop",
-    "orientation": "portrait",
+    "orientation": "landscape",
     "icons": [
         {
             "src": "/static/icon-192x192.png",
